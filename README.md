@@ -1,4 +1,4 @@
-# Commands to run the template
+# Commands to run the project
 ```
 npm i
 ```
