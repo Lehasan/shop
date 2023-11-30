@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/svg+xml" href="favicon.svg">
+	<link rel="stylesheet" href="/scss/style.scss">
+	<script type="module" src="/js/main.js"></script>
+	<title>Магазин</title>
+</head>
+
+<body>
+	<div class="wrapper">
+		<header class="header">
+			<div class="header__container">
+				<div class="header__logo">
+					<img src="favicon.svg" alt="Shop icon">
+					<span>Магазин</span>
+				</div>
+				<button type="button" class="header__cart cart" id="cart">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="cart__icon" viewBox="0 0 16 16">
+						<path
+							d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+					</svg>
+					<span class="cart__number" id="cart-number"></span>
+				</button>
+			</div>
+		</header>
+
+		<main class="main">
+			<div class="main__products products">
+				<div class="products__container">
+					<ul class="products__list"></ul>
+				</div>
+			</div>
+		</main>
+
+		<div class="cart-popup _hide">
+			<div class="cart-popup__wrapper">
+				<div class="cart-popup__top">
+					<span class="cart-popup__label">Кошик</span>
+					<button id="popup-close" type="button" class="cart-popup__close">+</button>
+				</div>
+				<div class="cart-popup__list-wrapper">
+					<ul class="cart-popup__list cart-products"></ul>
+					<div class="cart-popup__buy">
+						<span class="cart-popup__total-price">Всього: <span>0</span> ₴</span>
+						<button class="cart-popup__button">Оформити замовлення</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

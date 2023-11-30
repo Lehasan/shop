@@ -1,0 +1,74 @@
+[
+	{
+		"id": 1,
+		"image": "https://content2.rozetka.com.ua/goods/images/preview/269256825.jpg",
+		"name": "Ноутбук Apple MacBook Air 13.6' M2 8/256GB 2022 (MLXW3UA/A) Space Gray",
+		"price": 53499
+	},
+	{
+		"id": 2,
+		"image": "https://content2.rozetka.com.ua/goods/images/preview/178058817.jpg",
+		"name": "Навушники Apple AirPods Max Sky Blue (MGYL3TY/A)",
+		"price": 26999
+	},
+	{
+		"id": 3,
+		"image": "https://content2.rozetka.com.ua/goods/images/preview/224009737.jpg",
+		"name": "Планшет Apple iPad 10.2 2021 Wi-Fi 64 GB Space Gray (MK2K3RK/A)",
+		"price": 16499
+	},
+	{
+		"id": 4,
+		"image": "https://content1.rozetka.com.ua/goods/images/preview/24232303.jpg",
+		"name": "УМБ MediaRange 2xUSB 2.0 8800 mAh Black (MR752)",
+		"price": 391
+	},
+	{
+		"id": 5,
+		"image": "https://content.rozetka.com.ua/goods/images/big_tile/320078659.jpg",
+		"name": "Комп'ютер ARTLINE Gaming X47 (X47v45) AMD Ryzen 5 5500 / 16ГБ DDR4 / HDD 1ТБ + SSD 480ГБ / nVidia GeForce RTX 3060 12 ГБ",
+		"price": 27499
+	},
+	{
+		"id": 6,
+		"image": "https://content2.rozetka.com.ua/goods/images/big_tile/370282428.jpg",
+		"name": "Акустична система Tronsmart T2 mini 2023 Black (985906)",
+		"price": 699
+	},
+	{
+		"id": 7,
+		"image": "https://content.rozetka.com.ua/goods/images/big_tile/12934233.jpg",
+		"name": "Миша Razer DeathAdder Essential USB Black (RZ01-03850100-R3M1)",
+		"price": 1199
+	},
+	{
+		"id": 8,
+		"image": "https://content2.rozetka.com.ua/goods/images/big_tile/336327844.jpg",
+		"name": "Клавіатура дротова Hator Starfall Outemu Red (HTK-608)",
+		"price": 1349
+	},
+	{
+		"id": 9,
+		"image": "https://content2.rozetka.com.ua/goods/images/big_tile/372360252.jpg",
+		"name": "Маршрутизатор TP-LINK Archer A64",
+		"price": 1399
+	},
+	{
+		"id": 10,
+		"image": "https://content.rozetka.com.ua/goods/images/big_tile/310629135.jpg",
+		"name": "Мікрофон HyperX DuoCast Black (4P5E2AA)",
+		"price": 4799
+	},
+	{
+		"id": 11,
+		"image": "https://content2.rozetka.com.ua/goods/images/big_tile/243380301.jpg",
+		"name": "Графічний планшет Gaomon для малювання S620 чорний (FG-417281)",
+		"price": 1841
+	},
+	{
+		"id": 12,
+		"image": "https://content.rozetka.com.ua/goods/images/big_tile/313569316.jpg",
+		"name": "Флеш пам'ять USB Kingston DataTraveler Exodia Onyx 128GB USB 3.2 Gen 1 Black (DTXON/128GB)",
+		"price": 319
+	}
+]

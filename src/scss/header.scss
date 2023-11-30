@@ -1,0 +1,50 @@
+.header {
+	position: sticky;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: #19202a;
+	z-index: 50;
+
+	&__container {
+		min-height: 70px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__logo {
+		font-size: 20px;
+		display: flex;
+		align-items: center;
+		letter-spacing: 3px;
+		gap: 15px;
+		color: #fff;
+
+		img {
+			width: 30px;
+		}
+	}
+
+	&__cart {
+		color: #fff;
+	}
+}
+
+.cart {
+	position: relative;
+
+	&__icon {
+		width: 30px;
+	}
+
+	&__number {
+		position: absolute;
+		top: 0;
+		left: 0;
+		inset: 21%;
+		font-size: 12px;
+		font-weight: 600;
+		color: #000;
+	}
+}
