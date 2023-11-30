@@ -4,11 +4,14 @@ import jsonData from "../json/data.json"
 import { loadProducts } from "./products.js"
 
 class Cart {
-	productsStorage = JSON.parse(localStorage.getItem('cart'))
-	inputCountStorage = localStorage.getItem('count')
+	PRODUCTS_STORAGE_KEY = 'cart'
+	INPUT_COUNT_STORAGE_KEY = 'count'
+
+	productsStorage = JSON.parse(localStorage.getItem(this.PRODUCTS_STORAGE_KEY))
+	inputCountStorage = localStorage.getItem(this.INPUT_COUNT_STORAGE_KEY)
 
 	cartElement = document.getElementById('cart')
-	cartNumber = document.getElementById('cart-number')
+	cartNumberElement = document.getElementById('cart-number')
 
 	productsListElement = document.querySelector('.products__list')
 	popupElement = document.querySelector('.cart-popup')
@@ -22,7 +25,7 @@ class Cart {
 	constructor() {
 		this.loadProductsToCart()
 		this.setCartNumber()
-		this.initHandlers()
+		this.initGlobalHandlers()
 	}
 
 	setCartNumber = () => {
@@ -31,7 +34,7 @@ class Cart {
 		this.cartBuyElement.parentElement.style.display = length ? 'block' : 'none'
 		this.popupWrapperElement.dataset.message = length ? '' : 'Кошик порожній'
 
-		return this.cartNumber.textContent = length > 9 ? '9+' : length
+		return this.cartNumberElement.textContent = length > 9 ? '9+' : length
 	}
 
 	loadProductsToCart = () => {
@@ -49,32 +52,31 @@ class Cart {
 	}
 
 	updateTotalPrice = () => {
-		if (!this.products.length) return this.cartTotalPriceElement.textContent = 0
-
 		let totalPrice = 0
-		this.products.forEach(item => {
-			return this.cartTotalPriceElement.textContent = totalPrice += item.price
-		})
+
+		return !this.products.length
+			? this.cartTotalPriceElement.textContent = totalPrice
+			: this.products.forEach(item => this.cartTotalPriceElement.textContent = totalPrice += item.price)
 	}
 
 	createProductInCart = (id, image, name, price) => {
 		const cartProductTemplate = `
-		<li class="cart-products__item" id="${id}">
-			<article class="cart-products__item-article">
-				<a href="#" class="cart-products__image">
-					<img src="${image}" alt="${name}">
-				</a>
-				<a href="#" title="${name}" class="cart-products__title">${name}</a>
-				<input class="cart-products__number" type="number" min="1" value="1">
-				<span class="cart-products__price"><span>${price}</span> ₴</span>
-				<button type="button" class="cart-products__remove">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-						<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-						<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-			 		</svg>
-				</button>
-			</article>
-		</li>`
+			<li class="cart-products__item" id="${id}">
+				<article class="cart-products__item-article">
+					<a href="#" class="cart-products__image">
+						<img src="${image}" alt="${name}">
+					</a>
+					<a href="#" title="${name}" class="cart-products__title">${name}</a>
+					<input class="cart-products__number" type="number" min="1" value="1">
+					<span class="cart-products__price"><span>${price}</span> ₴</span>
+					<button type="button" class="cart-products__remove">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+							<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+							<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+			 			</svg>
+					</button>
+				</article>
+			</li>`
 
 		return this.cartProductsListElement.insertAdjacentHTML('beforeend', cartProductTemplate)
 	}
@@ -83,9 +85,7 @@ class Cart {
 		this.popupElement.classList.toggle('_hide')
 		document.body.classList.toggle('_lock')
 
-		return !this.popupElement.classList.contains('_hide')
-			? document.addEventListener('keyup', this.popupToggleKeyup)
-			: document.removeEventListener('keyup', this.popupToggleKeyup)
+		return !this.popupElement.classList.contains('_hide') ? this.addPopupHandlers() : this.removePopupHandlers()
 	}
 
 	toggleBuyButtonStatus = element => {
@@ -103,18 +103,20 @@ class Cart {
 	addProductToCart = productId => {
 		const findProduct = element => {
 			if (productId !== element.id) return
-
 			const { id, image, name, price } = element
+
 			this.createProductInCart(id, image, name, price)
 			this.products.push({ id, image, name, price })
 			this.updateTotalPrice()
+			this.saveProductInStorage()
 
-			localStorage.setItem('cart', JSON.stringify(this.products))
 			return this.setCartNumber()
 		}
 
 		return jsonData.find(findProduct)
 	}
+
+	saveProductInStorage = () => localStorage.setItem(this.PRODUCTS_STORAGE_KEY, JSON.stringify(this.products))
 
 	removeProductInCart = productId => {
 		const findProduct = (element, index) => {
@@ -122,8 +124,8 @@ class Cart {
 
 			this.products.splice(index, 1)
 			this.updateTotalPrice()
+			this.saveProductInStorage()
 
-			localStorage.setItem('cart', JSON.stringify(this.products))
 			return this.setCartNumber()
 		}
 
@@ -138,8 +140,8 @@ class Cart {
 			const originalPrice = jsonData[productId - 1].price
 
 			this.products[index].price = currentPriceElement.textContent = originalPrice * count
+			this.saveProductInStorage()
 
-			localStorage.setItem('cart', JSON.stringify(this.products))
 			return this.updateTotalPrice()
 		}
 
@@ -156,11 +158,11 @@ class Cart {
 	}
 
 	updateInputCount = () => {
-		let inputCounts = []
 		const counterInputElements = document.querySelectorAll('.cart-products__number')
+		let inputCounts = []
 
 		counterInputElements.forEach(item => inputCounts.push(item.value))
-		return localStorage.setItem('count', inputCounts)
+		return localStorage.setItem(this.INPUT_COUNT_STORAGE_KEY, inputCounts)
 	}
 
 	popupToggleKeyup = event => event.code === 'Escape' ? this.popupToggle() : null
@@ -180,8 +182,8 @@ class Cart {
 		const targetButton = event.target.closest('.cart-products__remove')
 
 		if (!targetButton) return
-
 		const currentProduct = targetButton.closest('.cart-products__item')
+
 		currentProduct.remove()
 
 		this.updateInputCount()
@@ -195,7 +197,7 @@ class Cart {
 			targetButton = target.closest('#cart, #popup-close, ._added')
 
 		if (targetButton || target.closest('.cart-popup') && !target.closest('.cart-popup__wrapper')) {
-			this.popupToggle()
+			return this.popupToggle()
 		}
 	}
 
@@ -203,7 +205,6 @@ class Cart {
 		const targetInput = event.target.closest('.cart-products__number')
 
 		if (!targetInput || targetInput.value <= 0) return
-
 		targetInput.value = targetInput.value.replace(/[^\d]/g, '')
 
 		const currentProduct = targetInput.closest('.cart-products__item')
@@ -212,12 +213,21 @@ class Cart {
 		return this.updateProductPrice(+currentProduct.id, targetInput.value, currentProduct)
 	}
 
-	initHandlers = () => {
-		document.addEventListener('click', this.handlePopupToggleButtonClick)
-
-		this.productsListElement.addEventListener('click', this.handleAddProductButtonClick)
-		this.cartProductsListElement.addEventListener('click', this.handleRemoveProductButtonClick)
+	addPopupHandlers = () => {
+		document.addEventListener('keyup', this.popupToggleKeyup)
 		this.cartProductsListElement.addEventListener('input', this.handleCounterInput)
+		this.cartProductsListElement.addEventListener('click', this.handleRemoveProductButtonClick)
+	}
+
+	removePopupHandlers = () => {
+		document.removeEventListener('keyup', this.popupToggleKeyup)
+		this.cartProductsListElement.removeEventListener('input', this.handleCounterInput)
+		this.cartProductsListElement.removeEventListener('click', this.handleRemoveProductButtonClick)
+	}
+
+	initGlobalHandlers = () => {
+		document.addEventListener('click', this.handlePopupToggleButtonClick)
+		this.productsListElement.addEventListener('click', this.handleAddProductButtonClick)
 	}
 }
 
